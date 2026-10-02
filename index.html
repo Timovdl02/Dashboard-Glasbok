@@ -38,6 +38,8 @@
   .b-info { background: var(--info-bg); color: var(--info); }
   .progress { height: 10px; background: var(--line); border-radius: 999px; overflow: hidden; margin-top: 8px; }
   .progress > div { height: 100%; background: var(--ok); }
+  .plan { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .plan .l { color: var(--muted); font-size: 13px; } .plan .v { font-weight: 600; }
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
   .step { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; position: relative; }
   .step .n { color: var(--muted); font-size: 12px; }
@@ -69,6 +71,11 @@
   <p class="sub" id="sub"></p>
 
   <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <h2>Planning</h2>
+    <div class="plan" id="plan"></div>
+  </section>
 
   <section class="card">
     <h2>Voortgang per processtap (units)</h2>
@@ -138,10 +145,12 @@
   $("kpis").insertAdjacentHTML("beforebegin", '<div class="badges" style="margin:-8px 0 16px">' + badges +
     '<span class="badge b-warn">Laatst gecontroleerd ' + esc(o.laatstGecontroleerd) + '</span></div>');
 
+  $("plan").innerHTML = o.planning.map(function (p) { return '<div><div class="l">' + esc(p[0]) + '</div><div class="v">' + esc(p[1]) + '</div></div>'; }).join("");
+
   $("steps").innerHTML = o.stappen.map(function (s) {
     var cur = s.naam === o.huidigeStap;
     return '<div class="step' + (cur ? " current" : "") + '">' + (cur ? '<span class="tag">HUIDIG</span>' : "") +
-      '<div class="n">Stap ' + s.volgorde + ' van ' + o.stappen.length + '</div><div class="name">' + esc(s.naam) + '</div>' +
+      '<div class="n">Station ' + s.volgorde + ' van ' + o.stappen.length + '</div><div class="name">' + esc(s.naam) + '</div>' +
       '<div class="open">' + s.open + '</div></div>';
   }).join("");
 

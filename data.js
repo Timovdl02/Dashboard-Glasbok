@@ -12,14 +12,21 @@ window.ORDER = {
   status: "Lopend (Tracy in_progress); Exact: Materiaaltekort",
   stappen: [
     { naam: "Hechten / lassen robot", volgorde: 1, open: 384 },
-    { naam: "Label", volgorde: 2, open: 16 },
-    { naam: "Gereed voor afwerking", volgorde: 3, open: 0 },
-    { naam: "Afwerking", volgorde: 4, open: 0 },
-    { naam: "Assemblage", volgorde: 5, open: 0 },
-    { naam: "Type Label", volgorde: 6, open: 0 }
+    { naam: "Gereed voor afwerking", volgorde: 2, open: 16 },
+    { naam: "Afwerking", volgorde: 3, open: 0 },
+    { naam: "Assembleren", volgorde: 4, open: 0 }
   ],
+  // Planning zoals getoond in Tracy
+  planning: [
+    ["Week", "W34 2026"],
+    ["Start", "19-08 02:00"],
+    ["Werkelijk", "25-09 11:11"],
+    ["ERP einde", "31-03 00:00"],
+    ["Tijdsduur", "48d 15h 40m"]
+  ],
+
   log: [
-    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches (sheet) op Label (stap 2 van 6), 0 afgerond. Gecorrigeerd: de order is 400 units; 16 units zijn bij station 2 (Label), de overige 384 bij Hechten / lassen robot (station 1). Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
+    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches (sheet) op Label (stap 2 van 6), 0 afgerond. Gecorrigeerd volgens Tracy: de order is 400 units; 384 bij Hechten / lassen robot, 16 bij Gereed voor afwerking. Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
     { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds alles op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." }
   ],
   // [artikel, omschrijving, gepland, eenheid, geplande datum, status, verwachte voorraad, op voorraad, bestelling, tekort]

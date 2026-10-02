@@ -10,12 +10,16 @@ window.ORDER = {
   sinds: "2026-10-02",
   laatstGecontroleerd: "2026-10-02",
   status: "Lopend (Tracy in_progress); Exact: Materiaaltekort",
+  // open: null = geen data (station niet zichtbaar in Tracy)
   stappen: [
-    { naam: "Hechten / lassen robot", volgorde: 1, open: 384 },
-    { naam: "Gereed voor afwerking", volgorde: 2, open: 16 },
-    { naam: "Afwerking", volgorde: 3, open: 0 },
-    { naam: "Assembleren", volgorde: 4, open: 0 }
+    { naam: "Lasersnijden", volgorde: 1, open: null },
+    { naam: "Kanten", volgorde: 2, open: null },
+    { naam: "Hechten / lassen robot", volgorde: 3, open: 384 },
+    { naam: "Gereed voor afwerking", volgorde: 4, open: 16 },
+    { naam: "Afwerking", volgorde: 5, open: 0 },
+    { naam: "Assembleren", volgorde: 6, open: 0 }
   ],
+
   // Planning zoals getoond in Tracy
   planning: [
     ["Week", "W34 2026"],

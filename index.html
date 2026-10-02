@@ -45,6 +45,8 @@
   .step .n { color: var(--muted); font-size: 12px; }
   .step .name { font-weight: 600; }
   .step .open { font-size: 22px; font-weight: 650; margin-top: 4px; }
+  .step .open.nodata { font-size: 14px; font-weight: 500; color: var(--muted); margin-top: 10px; }
+  .step.nodata-step { border-style: dashed; }
   .step.current { border-color: var(--accent); background: var(--info-bg); }
   .step.current .tag { position: absolute; top: 8px; right: 10px; font-size: 11px; color: var(--accent); font-weight: 650; }
   .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
@@ -120,15 +122,17 @@
   });
   var shortCount = mat.filter(function (m) { return m.tekort; }).length;
   var received = mat.filter(function (m) { return m.status === "Ontvangen"; }).length;
-  var voorbij = o.totaal - (o.stappen[0] ? o.stappen[0].open : 0);
-  var top = o.stappen.slice().sort(function (x, y) { return y.open - x.open; })[0];
+  var met = o.stappen.filter(function (s) { return s.open != null; });
+  var ref = met[0];
+  var voorbij = o.totaal - ref.open;
+  var top = met.slice().sort(function (x, y) { return y.open - x.open; })[0];
   var pct = o.totaal ? Math.round(voorbij / o.totaal * 100) : 0;
 
   $("title").textContent = "Orderstatus " + o.werkorder + " / " + o.pr;
   $("sub").textContent = o.artikel + " · Production request " + o.productionRequestId;
 
   $("kpis").innerHTML =
-    '<div class="kpi"><div class="label">Voorbij eerste station</div><div class="value">' + voorbij + ' / ' + o.totaal + '</div>' +
+    '<div class="kpi"><div class="label">Voorbij ' + esc(ref.naam) + '</div><div class="value">' + voorbij + ' / ' + o.totaal + '</div>' +
       '<div class="progress"><div style="width:' + pct + '%"></div></div><div class="note">' + pct + '% van de order</div></div>' +
     '<div class="kpi"><div class="label">Meeste units bij</div><div class="value" style="font-size:22px">' + esc(top.naam) + '</div>' +
       '<div class="note">' + top.open + ' van ' + o.totaal + ' units</div></div>' +
@@ -149,9 +153,9 @@
 
   $("steps").innerHTML = o.stappen.map(function (s) {
     var cur = s.naam === o.huidigeStap;
-    return '<div class="step' + (cur ? " current" : "") + '">' + (cur ? '<span class="tag">HUIDIG</span>' : "") +
+    return '<div class="step' + (cur ? " current" : "") + (s.open == null ? " nodata-step" : "") + '">' + (cur ? '<span class="tag">HUIDIG</span>' : "") +
       '<div class="n">Station ' + s.volgorde + ' van ' + o.stappen.length + '</div><div class="name">' + esc(s.naam) + '</div>' +
-      '<div class="open">' + s.open + '</div></div>';
+      (s.open == null ? '<div class="open nodata">Geen data</div>' : '<div class="open">' + s.open + '</div>') + '</div>';
   }).join("");
 
   var statuses = Array.from(new Set(mat.map(function (m) { return m.status; })));

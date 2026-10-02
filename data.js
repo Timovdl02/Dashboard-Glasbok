@@ -6,12 +6,12 @@ window.ORDER = {
   productionRequestId: "51047",
   artikel: "BW.6084.4001.1 Glasbok-Vast Blue Workx (400 st.)",
   totaal: 400, // units in de hele order
-  huidigeStap: "Label",
+  huidigeStap: "Hechten / lassen robot",
   sinds: "2026-10-02",
   laatstGecontroleerd: "2026-10-02",
   status: "Lopend (Tracy in_progress); Exact: Materiaaltekort",
   stappen: [
-    { naam: "Lassen", volgorde: 1, open: 0 },
+    { naam: "Hechten / lassen robot", volgorde: 1, open: 384 },
     { naam: "Label", volgorde: 2, open: 16 },
     { naam: "Gereed voor afwerking", volgorde: 3, open: 0 },
     { naam: "Afwerking", volgorde: 4, open: 0 },
@@ -19,7 +19,7 @@ window.ORDER = {
     { naam: "Type Label", volgorde: 6, open: 0 }
   ],
   log: [
-    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches (sheet) op Label (stap 2 van 6), 0 afgerond. Gecorrigeerd: de order is 400 units; 16 units zijn bij station 2 (Label). Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
+    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches (sheet) op Label (stap 2 van 6), 0 afgerond. Gecorrigeerd: de order is 400 units; 16 units zijn bij station 2 (Label), de overige 384 bij Hechten / lassen robot (station 1). Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
     { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds alles op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." }
   ],
   // [artikel, omschrijving, gepland, eenheid, geplande datum, status, verwachte voorraad, op voorraad, bestelling, tekort]

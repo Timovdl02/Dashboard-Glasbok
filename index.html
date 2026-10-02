@@ -113,18 +113,18 @@
   });
   var shortCount = mat.filter(function (m) { return m.tekort; }).length;
   var received = mat.filter(function (m) { return m.status === "Ontvangen"; }).length;
-  var inStap = o.stappen.reduce(function (a, s) { return a + s.open; }, 0);
-  var nogNiet = o.totaal - inStap;
-  var pct = o.totaal ? Math.round(inStap / o.totaal * 100) : 0;
+  var voorbij = o.totaal - (o.stappen[0] ? o.stappen[0].open : 0);
+  var top = o.stappen.slice().sort(function (x, y) { return y.open - x.open; })[0];
+  var pct = o.totaal ? Math.round(voorbij / o.totaal * 100) : 0;
 
   $("title").textContent = "Orderstatus " + o.werkorder + " / " + o.pr;
   $("sub").textContent = o.artikel + " · Production request " + o.productionRequestId;
 
   $("kpis").innerHTML =
-    '<div class="kpi"><div class="label">Units bij een station</div><div class="value">' + inStap + ' / ' + o.totaal + '</div>' +
-      '<div class="progress"><div style="width:' + pct + '%"></div></div><div class="note">' + nogNiet + ' units nog niet in productie</div></div>' +
-    '<div class="kpi"><div class="label">Huidige stap</div><div class="value">' + esc(o.huidigeStap) + '</div>' +
-      '<div class="note">Sinds ' + esc(o.sinds) + '</div></div>' +
+    '<div class="kpi"><div class="label">Voorbij eerste station</div><div class="value">' + voorbij + ' / ' + o.totaal + '</div>' +
+      '<div class="progress"><div style="width:' + pct + '%"></div></div><div class="note">' + pct + '% van de order</div></div>' +
+    '<div class="kpi"><div class="label">Meeste units bij</div><div class="value" style="font-size:22px">' + esc(top.naam) + '</div>' +
+      '<div class="note">' + top.open + ' van ' + o.totaal + ' units</div></div>' +
     '<div class="kpi"><div class="label">Materiaaltekort</div><div class="value ' + (shortCount ? "bad" : "ok") + '">' + shortCount + ' van ' + mat.length + '</div>' +
       '<div class="note">regels op tekort (Exact)</div></div>' +
     '<div class="kpi"><div class="label">Materiaal ontvangen</div><div class="value">' + received + ' / ' + mat.length + '</div>' +

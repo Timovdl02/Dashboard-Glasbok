@@ -71,7 +71,7 @@
   <section class="kpis" id="kpis"></section>
 
   <section class="card">
-    <h2>Voortgang per processtap (open batches)</h2>
+    <h2>Voortgang per processtap (units)</h2>
     <div class="steps" id="steps"></div>
   </section>
 
@@ -109,23 +109,22 @@ window.ORDER = {
   pr: "PR2787",
   productionRequestId: "51047",
   artikel: "BW.6084.4001.1 Glasbok-Vast Blue Workx (400 st.)",
-  klaar: 0,
-  totaal: 18,
+  totaal: 400, // units in de hele order
   huidigeStap: "Label",
   sinds: "2026-10-02",
   laatstGecontroleerd: "2026-10-02",
   status: "Lopend (Tracy in_progress); Exact: Materiaaltekort",
   stappen: [
     { naam: "Lassen", volgorde: 1, open: 0 },
-    { naam: "Label", volgorde: 2, open: 18 },
+    { naam: "Label", volgorde: 2, open: 16 },
     { naam: "Gereed voor afwerking", volgorde: 3, open: 0 },
     { naam: "Afwerking", volgorde: 4, open: 0 },
     { naam: "Assemblage", volgorde: 5, open: 0 },
     { naam: "Type Label", volgorde: 6, open: 0 }
   ],
   log: [
-    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches, alle op Label (stap 2 van 6), 0 afgerond. Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
-    { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds 18 open batches op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." }
+    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches (sheet) op Label (stap 2 van 6), 0 afgerond. Gecorrigeerd: de order is 400 units; 16 units zijn bij station 2 (Label). Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
+    { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds alles op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." }
   ],
   // [artikel, omschrijving, gepland, eenheid, geplande datum, status, verwachte voorraad, op voorraad, bestelling, tekort]
   materiaal: [
@@ -184,14 +183,16 @@ window.ORDER = {
   });
   var shortCount = mat.filter(function (m) { return m.tekort; }).length;
   var received = mat.filter(function (m) { return m.status === "Ontvangen"; }).length;
-  var pct = o.totaal ? Math.round(o.klaar / o.totaal * 100) : 0;
+  var inStap = o.stappen.reduce(function (a, s) { return a + s.open; }, 0);
+  var nogNiet = o.totaal - inStap;
+  var pct = o.totaal ? Math.round(inStap / o.totaal * 100) : 0;
 
   $("title").textContent = "Orderstatus " + o.werkorder + " / " + o.pr;
   $("sub").textContent = o.artikel + " · Production request " + o.productionRequestId;
 
   $("kpis").innerHTML =
-    '<div class="kpi"><div class="label">Batches klaar</div><div class="value">' + o.klaar + ' / ' + o.totaal + '</div>' +
-      '<div class="progress"><div style="width:' + pct + '%"></div></div><div class="note">' + pct + '% afgerond</div></div>' +
+    '<div class="kpi"><div class="label">Units bij een station</div><div class="value">' + inStap + ' / ' + o.totaal + '</div>' +
+      '<div class="progress"><div style="width:' + pct + '%"></div></div><div class="note">' + nogNiet + ' units nog niet in productie</div></div>' +
     '<div class="kpi"><div class="label">Huidige stap</div><div class="value">' + esc(o.huidigeStap) + '</div>' +
       '<div class="note">Sinds ' + esc(o.sinds) + '</div></div>' +
     '<div class="kpi"><div class="label">Materiaaltekort</div><div class="value ' + (shortCount ? "bad" : "ok") + '">' + shortCount + ' van ' + mat.length + '</div>' +

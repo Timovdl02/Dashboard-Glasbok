@@ -71,7 +71,7 @@
   <section class="kpis" id="kpis"></section>
 
   <section class="card">
-    <h2>Voortgang per processtap (open batches)</h2>
+    <h2>Voortgang per processtap (units)</h2>
     <div class="steps" id="steps"></div>
   </section>
 
@@ -113,14 +113,16 @@
   });
   var shortCount = mat.filter(function (m) { return m.tekort; }).length;
   var received = mat.filter(function (m) { return m.status === "Ontvangen"; }).length;
-  var pct = o.totaal ? Math.round(o.klaar / o.totaal * 100) : 0;
+  var inStap = o.stappen.reduce(function (a, s) { return a + s.open; }, 0);
+  var nogNiet = o.totaal - inStap;
+  var pct = o.totaal ? Math.round(inStap / o.totaal * 100) : 0;
 
   $("title").textContent = "Orderstatus " + o.werkorder + " / " + o.pr;
   $("sub").textContent = o.artikel + " · Production request " + o.productionRequestId;
 
   $("kpis").innerHTML =
-    '<div class="kpi"><div class="label">Batches klaar</div><div class="value">' + o.klaar + ' / ' + o.totaal + '</div>' +
-      '<div class="progress"><div style="width:' + pct + '%"></div></div><div class="note">' + pct + '% afgerond</div></div>' +
+    '<div class="kpi"><div class="label">Units bij een station</div><div class="value">' + inStap + ' / ' + o.totaal + '</div>' +
+      '<div class="progress"><div style="width:' + pct + '%"></div></div><div class="note">' + nogNiet + ' units nog niet in productie</div></div>' +
     '<div class="kpi"><div class="label">Huidige stap</div><div class="value">' + esc(o.huidigeStap) + '</div>' +
       '<div class="note">Sinds ' + esc(o.sinds) + '</div></div>' +
     '<div class="kpi"><div class="label">Materiaaltekort</div><div class="value ' + (shortCount ? "bad" : "ok") + '">' + shortCount + ' van ' + mat.length + '</div>' +

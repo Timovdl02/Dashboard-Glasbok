@@ -5,23 +5,22 @@ window.ORDER = {
   pr: "PR2787",
   productionRequestId: "51047",
   artikel: "BW.6084.4001.1 Glasbok-Vast Blue Workx (400 st.)",
-  klaar: 0,
-  totaal: 18,
+  totaal: 400, // units in de hele order
   huidigeStap: "Label",
   sinds: "2026-10-02",
   laatstGecontroleerd: "2026-10-02",
   status: "Lopend (Tracy in_progress); Exact: Materiaaltekort",
   stappen: [
     { naam: "Lassen", volgorde: 1, open: 0 },
-    { naam: "Label", volgorde: 2, open: 18 },
+    { naam: "Label", volgorde: 2, open: 16 },
     { naam: "Gereed voor afwerking", volgorde: 3, open: 0 },
     { naam: "Afwerking", volgorde: 4, open: 0 },
     { naam: "Assemblage", volgorde: 5, open: 0 },
     { naam: "Type Label", volgorde: 6, open: 0 }
   ],
   log: [
-    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches, alle op Label (stap 2 van 6), 0 afgerond. Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
-    { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds 18 open batches op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." }
+    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches (sheet) op Label (stap 2 van 6), 0 afgerond. Gecorrigeerd: de order is 400 units; 16 units zijn bij station 2 (Label). Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
+    { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds alles op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." }
   ],
   // [artikel, omschrijving, gepland, eenheid, geplande datum, status, verwachte voorraad, op voorraad, bestelling, tekort]
   materiaal: [

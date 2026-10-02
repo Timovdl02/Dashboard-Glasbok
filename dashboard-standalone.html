@@ -111,7 +111,7 @@
 </main>
 
 <script>
-// Snapshot van Google Sheet "Tracy – order WO10128 / PR2787 (controle werkdagen)"
+// Snapshot (bijgewerkt na sheet-controle 2026-10-02) van Google Sheet "Tracy – order WO10128 / PR2787 (controle werkdagen)"
 // Bijwerken: vervang de waarden hieronder met de actuele sheet-inhoud.
 window.ORDER = {
   werkorder: "WO10128",
@@ -143,9 +143,11 @@ window.ORDER = {
   ],
 
   log: [
-    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches (sheet) op Label (stap 2 van 6), 0 afgerond. Gecorrigeerd volgens Tracy: de order is 400 units; 384 bij Hechten / lassen robot, 16 bij Gereed voor afwerking. Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
-    { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds alles op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." }
+    { datum: "2026-10-02", opmerking: "Nulmeting: 18 open batches, alle op Label (stap 2 van 6), 0 afgerond. Exact: Materiaaltekort, 9 van 41 materiaalregels op tekort." },
+    { datum: "2026-10-02", opmerking: "Geen wijziging (2e controle vandaag, handmatige testrun): nog steeds 18 open batches op Label, 0 afgerond; tekortlijst ongewijzigd (9 van 41)." },
+    { datum: "2026-10-02", opmerking: "Correctie telwijze: nu units per station zoals in Tracy (Hechten/Lassen ROBOT 384, Gereed voor afwerking 16, Afwerking 0, Assemblage 0; klaar 0 van 400). Gescrapte batches 83850 en 83933 tellen niet mee; printstappen Label en Type Label vallen onder hun station." }
   ],
+
   // [artikel, omschrijving, gepland, eenheid, geplande datum, status, verwachte voorraad, op voorraad, bestelling, tekort]
   materiaal: [
     ["BW.6084.00002.0", "ELVZ ST. KARABIJNHAAK 4X40MM", "800", "Stuk", "2026-09-30", "Ontvangen", "", "", "11598", "nee"],
